@@ -34,6 +34,9 @@ Plug 'vim-airline/vim-airline'
 -- Support for fish shell scripts
 Plug 'dag/vim-fish'
 
+-- Support for git (branches etc)
+Plug 'tpope/vim-fugitive'
+
 vim.call('plug#end')
 
 --------------------------------------------------------------------------------
