@@ -29,4 +29,14 @@ vim.call('plug#begin')
 -- Install plugins here, e.g.:
 -- Plug 'tpope/vim-sensible'
 
+Plug 'vim-airline/vim-airline'
+
 vim.call('plug#end')
+
+--------------------------------------------------------------------------------
+-- Plugin specific configuration
+--------------------------------------------------------------------------------
+
+-- Make the Airline status bar use powerline symbols such as the Git branch
+-- symbol (turn this off if the terminal uses a font that doesn't support them).
+vim.g.airline_powerline_fonts = 1
