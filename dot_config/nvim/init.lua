@@ -31,6 +31,9 @@ vim.call('plug#begin')
 
 Plug 'vim-airline/vim-airline'
 
+-- Support for fish shell scripts
+Plug 'dag/vim-fish'
+
 vim.call('plug#end')
 
 --------------------------------------------------------------------------------
