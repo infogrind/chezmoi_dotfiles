@@ -30,19 +30,19 @@ set -x LC_ALL "en_US.UTF-8"
 test -d $HOME/bin && fish_add_path -p -P $HOME/bin
 
 {{- if .profiles.private }}
+# Use Neovim as default editor nowadays.
 set -x EDITOR /usr/local/bin/nvim
+{{- end }}
 
+{{- if .profiles.private }}
 # Environment variables required by GDK (Gitlab Development Kit)
 set -x PKG_CONFIG_PATH "/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 set -x RUBY_CONFIGURE_OPTS "--with-openssl-dir=/usr/local/opt/openssl@1.1 --with-readline-dir=/usr/local/opt/readline"
-source /Users/marius/.asdf/asdf.fish
 {{- end }}
 
-{{- /* bat is only available on my private MacBook and corp */ -}}
-{{- if or .profiles.private .profiles.corplinux }}
-
-# Use 'bat' for fzf preview
-set -gx FZF_CTRL_T_OPTS "--preview='bat --style=numbers --color=always {}'"
+{{- /* I only use asdf on my private machine. */ -}}
+{{- if .profiles.private }}
+source /Users/marius/.asdf/asdf.fish
 {{- end }}
 
 ################################################################################
@@ -63,9 +63,11 @@ alias gpp='git push && git push diskstation'
 # Note that .bashrc currently contains other aliases, but in practice I have
 # found that I am not really using these, so I am not migrating them for now.
 
-{{/* fd is only available on my private MacBook and corp */}}
+{{/* fzf is only available on my private MacBook and Google corp */}}
 {{ if or .profiles.private .profiles.corplinux }}
-set -gx FZF_DEFAULT_COMMAND "fd --type file --color=always"
-{{- end }}
-set -gx FZF_DEFAULT_OPTS "--ansi"
+# fzf settings: Use fd with bat for preview for both regular (calling `fzf`) and CTRL-T mode.
+set -gx FZF_DEFAULT_COMMAND "fd --type file --type symlink --color=always"
+set -gx FZF_DEFAULT_OPTS "--ansi --preview='bat --style=numbers --color=always {}'"
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -gx FZF_CTRL_T_OPTS "$FZF_CTRL_T_OPTS"
+{{- end }}
