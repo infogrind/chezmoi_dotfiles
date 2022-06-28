@@ -32,6 +32,8 @@ test -d $HOME/bin && fish_add_path -p -P $HOME/bin
 {{- if .profiles.private }}
 # Use Neovim as default editor nowadays.
 set -x EDITOR /usr/local/bin/nvim
+{{- else if .profiles.corplinux }}
+set -x EDITOR /usr/bin/nvim
 {{- end }}
 
 {{- if .profiles.private }}
@@ -71,3 +73,20 @@ set -gx FZF_DEFAULT_OPTS "--ansi --preview='bat --style=numbers --color=always {
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_CTRL_T_OPTS "$FZF_CTRL_T_OPTS"
 {{- end }}
+
+{{/* Various aliases for corp linux only */}}
+{{ if .profiles.corplinux }}
+# Aliases for faster blaze usage
+alias bb="blaze build"
+alias btt="blaze test"
+alias bqb="blaze query --output=build"
+
+# Aliases for faster Fig usage
+alias hgx="hg xl"
+alias hgst="hg st"
+alias hgc="hg commit"
+alias hgca="hg commit --amend"
+alias hga="hg amend"
+alias hgaeu="hg amend && hg evolve && hg uc"
+alias hgdi="hg diff"
+{{ end }}
