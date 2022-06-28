@@ -1,0 +1,4 @@
+[data.profiles]
+	private = true
+	work = false
+	corplinux = false

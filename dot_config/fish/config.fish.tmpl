@@ -1,0 +1,71 @@
+# vim:ft=fish
+################################################################################
+# Fish-specific configuration
+################################################################################
+# Enabled chezmoi profiles (see
+# https://www.chezmoi.io/user-guide/templating/#template-syntax):
+#
+{{- if .profiles.private }}
+# - Private
+{{- end }}
+{{- if .profiles.work }}
+# - Work
+{{- end }}
+{{- if .profiles.corplinux }}
+# - Corp linux
+{{- end }}
+
+# Disable standard greeting message
+set fish_greeting ""
+
+
+################################################################################
+# Environment variables
+################################################################################
+
+# Always use UTF-8 for everything
+set -x LC_ALL "en_US.UTF-8"
+
+# Include user's personal bin directory in the path
+test -d $HOME/bin && fish_add_path -p -P $HOME/bin
+
+{{- if .profiles.private }}
+set -x EDITOR /usr/local/bin/nvim
+
+# Environment variables required by GDK (Gitlab Development Kit)
+set -x PKG_CONFIG_PATH "/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
+set -x RUBY_CONFIGURE_OPTS "--with-openssl-dir=/usr/local/opt/openssl@1.1 --with-readline-dir=/usr/local/opt/readline"
+source /Users/marius/.asdf/asdf.fish
+{{- end }}
+
+{{- /* bat is only available on my private MacBook and corp */ -}}
+{{- if or .profiles.private .profiles.corplinux }}
+
+# Use 'bat' for fzf preview
+set -gx FZF_CTRL_T_OPTS "--preview='bat --style=numbers --color=always {}'"
+{{- end }}
+
+################################################################################
+# Aliases and Functions
+################################################################################
+
+# Make less behave properly with ansi codes
+alias less='less -R'
+
+{{- if .profiles.private }}
+# One-command Homebrew update
+alias brewup='brew update && brew upgrade && brew autoremove && brew cleanup -s && echo "All OK"'
+
+# Push my private repo quickly to all remotes
+alias gpp='git push && git push diskstation'
+{{- end }}
+
+# Note that .bashrc currently contains other aliases, but in practice I have
+# found that I am not really using these, so I am not migrating them for now.
+
+{{/* fd is only available on my private MacBook and corp */}}
+{{ if or .profiles.private .profiles.corplinux }}
+set -gx FZF_DEFAULT_COMMAND "fd --type file --color=always"
+{{- end }}
+set -gx FZF_DEFAULT_OPTS "--ansi"
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
