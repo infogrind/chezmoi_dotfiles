@@ -1,4 +1,9 @@
+[data]
+# Choose one of private, corpmac, or corplinux
+profile = "private"
+
+# This is deprecated
 [data.profiles]
-	private = true
-	work = false
-	corplinux = false
+private = true
+work = false
+corplinux = false
