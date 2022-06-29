@@ -68,7 +68,7 @@ alias gpp='git push && git push diskstation'
 {{/* fzf is only available on my private MacBook and Google corp */}}
 {{ if or .profiles.private .profiles.corplinux }}
 # fzf settings: Use fd with bat for preview for both regular (calling `fzf`) and CTRL-T mode.
-set -gx FZF_DEFAULT_COMMAND "fd --type file --type symlink --color=always"
+set -gx FZF_DEFAULT_COMMAND "fd --type file --type symlink --exclude '.git' --color=always"
 set -gx FZF_DEFAULT_OPTS "--ansi"
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_CTRL_T_OPTS "--preview='bat --style=numbers --color=always {}'"
