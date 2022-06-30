@@ -1,0 +1,5 @@
+README.md
+{{/* We only need Kitty on MacOS */}}
+{{- if not (or (eq .profile "private") (eq .profile "corpmac")) -}}
+.config/kitty
+{{- end -}}
