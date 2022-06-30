@@ -1,4 +1,4 @@
-{{- if .profiles.private -}}
+{{- if eq .profile "private" -}}
 function ls --wraps=exa --description 'alias ls=exa'
   exa $argv; 
 end

@@ -5,14 +5,12 @@
 # Enabled chezmoi profiles (see
 # https://www.chezmoi.io/user-guide/templating/#template-syntax):
 #
-{{- if .profiles.private }}
+{{- if eq .profile "private" }}
 # - Private
-{{- end }}
-{{- if .profiles.work }}
-# - Work
-{{- end }}
-{{- if .profiles.corplinux }}
-# - Corp linux
+{{- else if eq .profile "corpmac" }}
+# - Corp Mac
+{{- else if eq .profile "corplinux" }}
+# - Corp Linux
 {{- end }}
 
 # Disable standard greeting message
@@ -29,21 +27,19 @@ set -x LC_ALL "en_US.UTF-8"
 # Include user's personal bin directory in the path
 test -d $HOME/bin && fish_add_path -p -P $HOME/bin
 
-{{- if .profiles.private }}
+{{- if eq .profile "private" }}
 # Use Neovim as default editor nowadays.
 set -x EDITOR /usr/local/bin/nvim
-{{- else if .profiles.corplinux }}
+{{- else if eq .profile "corplinux" }}
 set -x EDITOR /usr/bin/nvim
 {{- end }}
 
-{{- if .profiles.private }}
+{{- if eq .profile "private" }}
 # Environment variables required by GDK (Gitlab Development Kit)
 set -x PKG_CONFIG_PATH "/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 set -x RUBY_CONFIGURE_OPTS "--with-openssl-dir=/usr/local/opt/openssl@1.1 --with-readline-dir=/usr/local/opt/readline"
-{{- end }}
 
-{{- /* I only use asdf on my private machine. */ -}}
-{{- if .profiles.private }}
+# Set up asdf
 source /Users/marius/.asdf/asdf.fish
 {{- end }}
 
@@ -54,7 +50,7 @@ source /Users/marius/.asdf/asdf.fish
 # Make less behave properly with ansi codes
 alias less='less -R'
 
-{{- if .profiles.private }}
+{{- if eq .profile "private" }}
 # One-command Homebrew update
 alias brewup='brew update && brew upgrade && brew autoremove && brew cleanup -s && echo "All OK"'
 
@@ -66,7 +62,7 @@ alias gpp='git push && git push diskstation'
 # found that I am not really using these, so I am not migrating them for now.
 
 {{/* fzf is only available on my private MacBook and Google corp */}}
-{{ if or .profiles.private .profiles.corplinux }}
+{{ if or (eq .profile "private") (eq .profile "corplinux") }}
 # fzf settings: Use fd with bat for preview for both regular (calling `fzf`) and CTRL-T mode.
 set -gx FZF_DEFAULT_COMMAND "fd --type file --type symlink --exclude '.git' --color=always"
 set -gx FZF_DEFAULT_OPTS "--ansi"
@@ -75,7 +71,7 @@ set -gx FZF_CTRL_T_OPTS "--preview='bat --style=numbers --color=always {}'"
 {{- end }}
 
 {{/* Various aliases for corp linux only */}}
-{{ if .profiles.corplinux }}
+{{ if eq .profile "corplinux" }}
 # Aliases for faster blaze usage
 alias bb="blaze build"
 alias btt="blaze test"
