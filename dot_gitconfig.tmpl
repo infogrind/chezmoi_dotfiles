@@ -5,9 +5,9 @@
 	user = infogrind
 [alias]
 	co = checkout
-    ci = commit
-    st = status
-    br = branch
+	ci = commit
+	st = status
+	br = branch
 	info = log --graph --oneline --date-order --decorate --color --all
 	tnylog = log --oneline --graph --decorate
 	up = "!git remote update -p; git merge --ff-only @{u}"
@@ -16,15 +16,7 @@
 	ui = true
 [push]
 	default = simple
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[diff]
-	tool = Kaleidoscope
-[difftool]
-	prompt = false
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
+
 [mergetool]
 	prompt = false
 [merge]
@@ -32,19 +24,9 @@
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+
 [core]
 	autocrlf = input
-	editor = vim -f
-	# From https://github.com/dandavison/delta#get-started
-	pager = delta
-
-# The following are from https://github.com/dandavison/delta#get-started
-[interactive]
-	diffFilter = delta --color-only
-
-[delta]
-	navigate = true  # use n and N to move between diff sections
-	light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 
 [merge]
 	conflictstyle = diff3
@@ -53,3 +35,26 @@
 	colorMoved = default
 [init]
 	defaultBranch = main
+
+{{ if eq .profile "private" -}}
+[core]
+	# From https://github.com/dandavison/delta#get-started
+	pager = delta
+[diff]
+	tool = Kaleidoscope
+[difftool]
+	prompt = false
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+
+# The following are from https://github.com/dandavison/delta#get-started
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true  # use n and N to move between diff sections
+	light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+{{ end -}}
