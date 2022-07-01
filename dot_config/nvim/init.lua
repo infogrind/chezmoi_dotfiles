@@ -20,6 +20,9 @@ vim.opt.mouse = 'a'
 -- Set wildcard mode to bash-like and show options in menu
 vim.opt.wildmode = 'longest,full'
 
+-- Use my preferred characters in list mode
+vim.opt.listchars='tab:▸ ,eol:¬,trail:·'
+
 -- Plugin section
 -- See 
 
