@@ -40,6 +40,18 @@ Plug 'dag/vim-fish'
 -- Support for git (branches etc)
 Plug 'tpope/vim-fugitive'
 
+-- Neovim LSP server configurations
+Plug 'neovim/nvim-lspconfig'
+
+-- Auto-completion support
+Plug 'hrsh7th/nvim-cmp'
+
+-- Sources for nvim-cmp
+Plug 'hrsh7th/cmp-nvim-lsp'  -- auto-completion for LSP servers
+Plug 'saadparwaiz1/cmp_luasnip' -- auto-completion for snippets
+Plug 'L3MON4D3/LuaSnip'  -- Snippet support (not properly a cmp source)
+
+
 vim.call('plug#end')
 
 --------------------------------------------------------------------------------
