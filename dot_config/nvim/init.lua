@@ -61,3 +61,8 @@ vim.call('plug#end')
 -- Make the Airline status bar use powerline symbols such as the Git branch
 -- symbol (turn this off if the terminal uses a font that doesn't support them).
 vim.g.airline_powerline_fonts = 1
+
+-- Load autocomplete/LSP/snippet config
+-- References to ./lua/, see e.g.
+-- https://github.com/Allaman/nvim/blob/main/init.lua.
+require("autocomplete")
