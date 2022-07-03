@@ -51,6 +51,9 @@ Plug 'hrsh7th/cmp-nvim-lsp'  -- auto-completion for LSP servers
 Plug 'saadparwaiz1/cmp_luasnip' -- auto-completion for snippets
 Plug 'L3MON4D3/LuaSnip'  -- Snippet support (not properly a cmp source)
 
+-- GUI for installing LSP servers
+Plug 'williamboman/nvim-lsp-installer'
+
 
 vim.call('plug#end')
 
