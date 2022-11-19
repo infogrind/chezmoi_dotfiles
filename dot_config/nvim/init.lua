@@ -23,8 +23,20 @@ vim.opt.wildmode = 'longest,full'
 -- Use my preferred characters in list mode
 vim.opt.listchars='tab:▸ ,eol:¬,trail:·'
 
+-- Shortcut to show invisible characters
+vim.api.nvim_set_keymap('n', '<leader>l', ":set list!<CR>", {noremap = true})
+
+-- Use the same symbols as TextMate for tabstops and EOLs
+vim.opt.listchars = 'tab:▸\\ ,eol:¬'
+
+-- Line numbering toggle
+vim.api.nvim_set_keymap('n', '<leader>n', ":set nu!<CR>", {noremap = true})
+
+-- <leader>w to show trailing whitespace as error, <leader>W to turn off again.
+vim.api.nvim_set_keymap('n', '<leader>w', ":match Error /\\v[ \\t]+$/<cr>", {noremap = true})
+
 -- Plugin section
--- See 
+-- See https://github.com/junegunn/vim-plug#usage
 
 
 vim.call('plug#begin')
