@@ -109,3 +109,8 @@ if status --is-interactive
   or gcert -s
 end
 {{- end }}
+{{- if eq .profile "corplinux" }}
+
+# Setup go/hi #!>>HI<<!#
+source_google_fish_package hi #!>>HI<<!#
+{{- end }}
