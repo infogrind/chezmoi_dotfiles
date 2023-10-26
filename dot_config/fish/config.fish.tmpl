@@ -72,15 +72,15 @@ set -gx FZF_CTRL_T_OPTS "--preview='bat --style=numbers --color=always {}'"
 
 {{/* Various aliases for corp linux only */}}
 {{ if eq .profile "corplinux" }}
-# Aliases for faster blaze usage
-alias bb="blaze build"
-alias ibb="iblaze build"
-alias btt="blaze test"
-alias ibtt="iblaze test"
-alias bqb="blaze query --output=build"
-
 # iBlaze alias
 alias iblaze='iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner'
+
+# Aliases for faster blaze usage
+alias bb="blaze build"
+alias ib="iblaze build"
+alias btt="blaze test"
+alias it="iblaze test"
+alias bqb="blaze query --output=build"
 
 # Aliases for faster Fig usage
 alias x="hg xl"
@@ -99,11 +99,14 @@ alias hgdi="hg diff"
 # https://perfetto.dev/docs/data-sources/native-heap-profiler).
 alias heap_profile="$HOME/perfetto/tools/heap_profile"
 
-# Jarvis
+# Various utils
 alias jarvis_cli=/google/data/ro/teams/ke-graph-exp/tools/jarvis_cli
-
-# plxutil
 alias plxutil=/google/data/ro/teams/plx/plxutil
+alias binsize=/home/build/google3/experimental/chazarain/binsize/binsize
+alias bisect=/google/data/ro/teams/tetralight/bin/bisect
+alias ht2=/google/bin/releases/hermeticas-eng/ht2_runner/ht2_main
+
+
 {{ end }}
 
 {{/* run gcert automatically on work machines */}}
