@@ -81,6 +81,8 @@ alias ib="iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner build"
 alias btt="blaze test"
 alias it="iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner test"
 alias bqb="blaze query --output=build"
+# This is to be used like "i blaze build //foo:bar"
+alias i="iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner -iblaze_blaze_binary"
 
 # Aliases for faster Fig usage
 alias x="hg xl"
