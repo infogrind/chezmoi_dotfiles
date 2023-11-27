@@ -3,7 +3,3 @@ README.md
 {{ if not (or (eq .profile "private") (eq .profile "corpmac")) -}}
 .config/kitty
 {{ end -}}
-{{/* I only have nvim on my private mac and on corp linux :'( */ -}}
-{{ if not (or (eq .profile "private") (eq .profile "corplinux")) -}}
-.config/nvim
-{{ end -}}
