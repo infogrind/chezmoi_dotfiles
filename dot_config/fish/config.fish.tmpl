@@ -72,12 +72,17 @@ set -gx FZF_CTRL_T_OPTS "--preview='bat --style=numbers --color=always {}'"
 
 {{/* Various aliases for corp linux only */}}
 {{ if eq .profile "corplinux" }}
+# iBlaze alias
+alias iblaze='iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner'
+
 # Aliases for faster blaze usage
 alias bb="blaze build"
-alias ibb="iblaze build"
+alias ib="iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner build"
 alias btt="blaze test"
-alias ibtt="iblaze test"
+alias it="iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner test"
 alias bqb="blaze query --output=build"
+# This is to be used like "i blaze build //foo:bar"
+alias i="iblaze -iblaze_interrupt_on_change -iblaze_norun_build_cleaner -iblaze_blaze_binary"
 
 # Aliases for faster Fig usage
 alias x="hg xl"
@@ -96,8 +101,15 @@ alias hgdi="hg diff"
 # https://perfetto.dev/docs/data-sources/native-heap-profiler).
 alias heap_profile="$HOME/perfetto/tools/heap_profile"
 
-# Jarvis
+# Various utils
 alias jarvis_cli=/google/data/ro/teams/ke-graph-exp/tools/jarvis_cli
+alias plxutil=/google/data/ro/teams/plx/plxutil
+alias binsize=/home/build/google3/experimental/chazarain/binsize/binsize
+alias bisect=/google/data/ro/teams/tetralight/bin/bisect
+alias ht2=/google/bin/releases/hermeticas-eng/ht2_runner/ht2_main
+alias skyquery=/google/src/head/depot/google3/experimental/users/mkleiner/scripts/skyquery/skyquery.sh 
+
+
 {{ end }}
 
 {{/* run gcert automatically on work machines */}}
@@ -108,4 +120,9 @@ if status --is-interactive
   gcertstatus --check_remaining=60m >/dev/null 2>&1
   or gcert -s
 end
+{{- end }}
+{{- if eq .profile "corplinux" }}
+
+# Setup go/hi #!>>HI<<!#
+source_google_fish_package hi #!>>HI<<!#
 {{- end }}
