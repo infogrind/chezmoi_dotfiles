@@ -8,7 +8,11 @@
 {{- if eq .profile "private" }}
 # - Private
 {{- else if eq .profile "corpmac" }}
-# - Corp Mac
+{{- if eq .chezmoi.arch "arm64" }}
+# - Corp Mac (Apple silicon)
+{{- else }}
+# - Corp Mac (Intel)
+{{- end }}
 {{- else if eq .profile "corplinux" }}
 # - Corp Linux
 {{- end }}
@@ -27,11 +31,13 @@ set -x LC_ALL "en_US.UTF-8"
 # Include user's personal bin directory in the path
 test -d $HOME/bin && fish_add_path -p -P $HOME/bin
 
-{{- if eq .profile "private" }}
 # Use Neovim as default editor nowadays.
-set -x EDITOR /usr/local/bin/nvim
-{{- else if eq .profile "corplinux" }}
+{{- if eq .profile "corplinux" }}
 set -x EDITOR /usr/bin/nvim
+{{- else if eq .chezmoi.arch "amd64" }}
+set -x EDITOR /usr/local/bin/nvim
+{{- else if eq .chezmoi.arch "arm64" }}
+set -x EDITOR /opt/homebrew/bin/nvim
 {{- end }}
 
 {{- if eq .profile "private" }}
@@ -125,4 +131,9 @@ end
 
 # Setup go/hi #!>>HI<<!#
 source_google_fish_package hi #!>>HI<<!#
+{{- end }}
+
+{{/* This is needed for Homebrew on Apple silicon */}}
+{{- if eq .chezmoi.arch "arm64" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
