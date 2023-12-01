@@ -30,8 +30,8 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 require("nvim-lsp-installer").setup {}
 
 {{/*------------------------------*/ -}}
-{{/* I only have language servers installed on my private machine */ -}}
-{{ if eq .profile "private" -}}
+{{/* I only have language servers installed on my private machine and on corp linux*/ -}}
+{{ if or (eq .profile "private") (eq .profile "corplinux") -}}
 
 require'lspconfig'.clangd.setup{
   filetypes = {
