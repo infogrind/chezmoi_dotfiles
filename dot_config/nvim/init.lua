@@ -67,7 +67,7 @@ Plug 'L3MON4D3/LuaSnip'  -- Snippet support (not properly a cmp source)
 Plug 'rafamadriz/friendly-snippets'
 
 -- GUI for installing LSP servers
-Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason.nvim'
 
 
 vim.call('plug#end')
