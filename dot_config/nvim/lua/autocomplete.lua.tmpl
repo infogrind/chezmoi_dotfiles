@@ -33,11 +33,30 @@ require("mason").setup {}
 {{/* I only have language servers installed on my private machine and on corp linux*/ -}}
 {{ if or (eq .profile "private") (eq .profile "corplinux") -}}
 
+{{/* Cider LSP config is only available in the corplinux profile */ -}}
+{{ if eq .profile "corplinux" -}}
+
+local nvim_lspconfig = require("lspconfig")
+local lsp_configs = require("lspconfig.configs")
+
+lsp_configs.ciderlsp = {
+    default_config = {
+        cmd = { '/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp', '--noforward_sync_responses' };
+        filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textproto", "go", "python", "bzl" },
+        offset_encoding = 'utf-8',
+        root_dir = nvim_lspconfig.util.root_pattern('google3/*BUILD');
+        settings = {};
+    }
+}
+
+nvim_lspconfig.ciderlsp.setup {}
+{{ else -}}
 require'lspconfig'.clangd.setup{
   filetypes = {
     "c", "cpp", "cc", "objc", "objcpp", "cuda"
   }
 }
+{{ end -}}
 
 -- Set up lspconfig for the Lua language server.
 -- This is taken from
