@@ -35,6 +35,13 @@ vim.api.nvim_set_keymap('n', '<leader>n', ":set nu!<CR>", {noremap = true})
 -- <leader>w to show trailing whitespace as error, <leader>W to turn off again.
 vim.api.nvim_set_keymap('n', '<leader>w', ":match Error /\\v[ \\t]+$/<cr>", {noremap = true})
 
+-- Set comments to italic (mainly to make use of the cool Monaspace handwritten
+-- italic font).
+-- Source: ChatGPT
+vim.api.nvim_exec([[
+  highlight Comment cterm=italic gui=italic
+]], false)
+
 -- Plugin section
 -- See https://github.com/junegunn/vim-plug#usage
 
