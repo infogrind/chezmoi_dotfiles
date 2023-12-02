@@ -26,9 +26,6 @@ vim.opt.listchars='tab:▸ ,eol:¬,trail:·'
 -- Shortcut to show invisible characters
 vim.api.nvim_set_keymap('n', '<leader>l', ":set list!<CR>", {noremap = true})
 
--- Use the same symbols as TextMate for tabstops and EOLs
-vim.opt.listchars = 'tab:▸\\ ,eol:¬'
-
 -- Line numbering toggle
 vim.api.nvim_set_keymap('n', '<leader>n', ":set nu!<CR>", {noremap = true})
 
