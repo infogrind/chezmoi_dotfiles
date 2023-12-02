@@ -150,6 +150,9 @@ vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
+-- Load any Snippets from the runtimepath
+require('luasnip.loaders.from_vscode').lazy_load()
+
 -- The following is the cmp configuration taken 1:1 (up to some disabled options
 -- for sources I haven't installed yet) from
 -- https://dev.to/vonheikemen/neovim-lsp-setup-nvim-lspconfig-nvim-cmp-4k8e.
