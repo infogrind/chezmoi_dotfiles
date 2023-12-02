@@ -4,11 +4,13 @@
 --
 -- See https://dev.to/vonheikemen/neovim-lsp-setup-nvim-lspconfig-nvim-cmp-4k8e.
 --------------------------------------------------------------------------------
-
+{{/* I only have language servers installed on my private machine and on corp linux*/ -}}
+{{ if or (eq .profile "private") (eq .profile "corplinux") -}}
 -- Required setup order according to
 -- https://github.com/williamboman/mason-lspconfig.nvim#setup
 require("mason").setup()
 require("mason-lspconfig").setup()
+local lspconfig = require('lspconfig')
 
 local lsp_defaults = {
   flags = {
@@ -25,22 +27,15 @@ local lsp_defaults = {
 }
 
 -- Merge my config into lspconfig's global config.
-local lspconfig = require('lspconfig')
-
 lspconfig.util.default_config = vim.tbl_deep_extend(
   'force',
   lspconfig.util.default_config,
   lsp_defaults
 )
 
-{{/*------------------------------*/ -}}
-{{/* I only have language servers installed on my private machine and on corp linux*/ -}}
-{{ if or (eq .profile "private") (eq .profile "corplinux") -}}
-
 {{/* Cider LSP config is only available in the corplinux profile */ -}}
+{{/* Alternatively, we use clangd. */ -}}
 {{ if eq .profile "corplinux" -}}
-
-local nvim_lspconfig = require("lspconfig")
 local lsp_configs = require("lspconfig.configs")
 
 lsp_configs.ciderlsp = {
@@ -48,12 +43,12 @@ lsp_configs.ciderlsp = {
         cmd = { '/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp', '--noforward_sync_responses' };
         filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textproto", "go", "python", "bzl" },
         offset_encoding = 'utf-8',
-        root_dir = nvim_lspconfig.util.root_pattern('google3/*BUILD');
+        root_dir = lspconfig.util.root_pattern('google3/*BUILD');
         settings = {};
     }
 }
 
-nvim_lspconfig.ciderlsp.setup {}
+lspconfig.ciderlsp.setup {}
 {{ else -}}
 require'lspconfig'.clangd.setup{
   filetypes = {
@@ -89,8 +84,6 @@ require'lspconfig'.lua_ls.setup {
     },
   },
 }
-
-{{ end }}
 
 -- Implement the autocmd for the callback defined above.
 vim.api.nvim_create_autocmd('User', {
@@ -143,6 +136,8 @@ vim.api.nvim_create_autocmd('User', {
     bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
   end
 })
+
+{{ end }}
 
 -- Set completeopt according to nvim-cmp's documentation.
 -- See also :help completeopt.
