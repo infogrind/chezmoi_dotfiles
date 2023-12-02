@@ -140,6 +140,9 @@ vim.api.nvim_create_autocmd('User', {
 {{ end }}
 
 -- Set completeopt according to nvim-cmp's documentation.
+-- This is independent of the language server configs above and also works
+-- without them. The LSP client is just one generic source of auto-complete
+-- items.
 -- See also :help completeopt.
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
@@ -159,6 +162,7 @@ cmp.setup({
     end
   },
   sources = {
+-- Disabling path and buffer, they produce too much noise.
 --    {name = 'path'},
     {name = 'nvim_lsp', keyword_length = 3},
 --    {name = 'buffer', keyword_length = 3},
@@ -191,6 +195,7 @@ cmp.setup({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
+    ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({select = true}),
 
