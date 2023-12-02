@@ -144,9 +144,6 @@ vim.api.nvim_create_autocmd('User', {
 -- See also :help completeopt.
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
--- Load any Snippets from the runtimepath
-require('luasnip.loaders.from_vscode').lazy_load()
-
 -- cmp provides the actual autocompletion support.
 local cmp = require('cmp')
 local luasnip = require('luasnip')
