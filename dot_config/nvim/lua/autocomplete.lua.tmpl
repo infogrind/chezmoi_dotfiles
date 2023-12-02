@@ -4,6 +4,12 @@
 --
 -- See https://dev.to/vonheikemen/neovim-lsp-setup-nvim-lspconfig-nvim-cmp-4k8e.
 --------------------------------------------------------------------------------
+
+-- Required setup order according to
+-- https://github.com/williamboman/mason-lspconfig.nvim#setup
+require("mason").setup()
+require("mason-lspconfig").setup()
+
 local lsp_defaults = {
   flags = {
     debounce_text_changes = 150,  -- ms to wait before sending next text change
@@ -26,8 +32,6 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
   lspconfig.util.default_config,
   lsp_defaults
 )
-
-require("mason").setup {}
 
 {{/*------------------------------*/ -}}
 {{/* I only have language servers installed on my private machine and on corp linux*/ -}}

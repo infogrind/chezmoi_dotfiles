@@ -69,6 +69,7 @@ Plug 'L3MON4D3/LuaSnip'  -- Snippet support (not properly a cmp source)
 
 -- GUI for installing LSP servers
 Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 
 vim.call('plug#end')
