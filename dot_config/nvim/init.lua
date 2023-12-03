@@ -74,6 +74,9 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 
+-- Directory tree (open with :NvimTreeOpen)
+Plug 'nvim-tree/nvim-tree.lua'
+
 
 vim.call('plug#end')
 
@@ -89,3 +92,13 @@ vim.g.airline_powerline_fonts = 1
 -- References to ./lua/, see e.g.
 -- https://github.com/Allaman/nvim/blob/main/init.lua.
 require("autocomplete")
+
+
+-- Options for nvim-tree/nvim-tree.lua:
+-- (More at https://github.com/nvim-tree/nvim-tree.lua#setup)
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+-- empty setup using defaults
+require("nvim-tree").setup()
+vim.api.nvim_set_keymap('n', '<leader>e', ":NvimTreeToggle<CR>", {noremap = true})
