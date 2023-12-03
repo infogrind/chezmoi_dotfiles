@@ -31,6 +31,12 @@ set -x LC_ALL "en_US.UTF-8"
 # Include user's personal bin directory in the path
 test -d $HOME/bin && fish_add_path -p -P $HOME/bin
 
+{{- if eq .profile "private" }}
+# For some reason, Homebrew does not put llvm binaries like clangd
+# on the path.
+test -d /usr/local/opt/llvm/bin/ && fish_add_path -P /usr/local/opt/llvm/bin/
+
+{{- end }}
 # Use Neovim as default editor nowadays.
 {{- if eq .profile "corplinux" }}
 set -x EDITOR /usr/bin/nvim
