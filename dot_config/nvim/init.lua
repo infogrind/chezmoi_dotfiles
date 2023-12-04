@@ -6,10 +6,6 @@
 -- already sets many reasonable default options. See `help :nvim-defaults` for
 -- details.
 
--- Emulate vim-plug's Plug command, I'll use it in the plugin section below.
--- See https://dev.to/vonheikemen/neovim-using-vim-plug-in-lua-3oom.
-local Plug = vim.fn['plug#']
-
 -- Set a default text width
 vim.opt.textwidth = 80
 
@@ -45,6 +41,11 @@ vim.api.nvim_exec([[
 
 vim.call('plug#begin')
 
+-- Emulate vim-plug's Plug command, I'll use it in the plugin section below.
+-- See https://dev.to/vonheikemen/neovim-using-vim-plug-in-lua-3oom.
+local Plug = vim.fn['plug#']
+
+
 -- Install plugins here, e.g.:
 -- Plug 'tpope/vim-sensible'
 
@@ -77,6 +78,10 @@ Plug 'williamboman/mason-lspconfig.nvim'
 -- Directory tree (open with :NvimTreeOpen)
 Plug 'nvim-tree/nvim-tree.lua'
 
+-- Better syntax highlighting using treesitter
+-- See https://github.com/nvim-treesitter/nvim-treesitter
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+
 
 vim.call('plug#end')
 
@@ -93,6 +98,7 @@ vim.g.airline_powerline_fonts = 1
 -- https://github.com/Allaman/nvim/blob/main/init.lua.
 require("autocomplete")
 
+require("treesitter")
 
 -- Options for nvim-tree/nvim-tree.lua:
 -- (More at https://github.com/nvim-tree/nvim-tree.lua#setup)
